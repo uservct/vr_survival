@@ -2118,7 +2118,7 @@ MonoBehaviour:
       - gameObject: {fileID: 919132149155446097, guid: f03608a7edc86aa42a6f5d4726885c74, type: 3}
       - gameObject: {fileID: 919132149155446097, guid: e3ee2c43dc1a4024da92ff6f4d8e7760, type: 3}
       selectedSlot: 0
-      selected: 0
+      selected: 1
       colorTag: 0
       customPreviewImage: {fileID: 0}
     - name: box
@@ -2396,7 +2396,7 @@ MonoBehaviour:
       - gameObject: {fileID: 0}
       - gameObject: {fileID: 0}
       selectedSlot: 5
-      selected: 1
+      selected: 0
       colorTag: 0
       customPreviewImage: {fileID: 0}
     - name: boxwcans
@@ -3316,8 +3316,8 @@ MonoBehaviour:
       customPreviewImage: {fileID: 0}
     - name: wood
       settings:
-        brushRadius: 1
-        brushSpacing: 0.5
+        brushRadius: 4.3
+        brushSpacing: 1.99
         brushOverlapCheckMode: 0
         brushOverlapDistance: 0.5
         brushOverlapCheckObjects: 1
