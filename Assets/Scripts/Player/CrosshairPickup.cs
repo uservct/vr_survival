@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using UnityEngine.InputSystem; // Input System New
+using UnityEngine.InputSystem;
 
 public class CrosshairPickup : MonoBehaviour
 {
@@ -11,28 +11,40 @@ public class CrosshairPickup : MonoBehaviour
     public LayerMask interactMask;
 
     [Header("UI")]
-    public Button pickupButton;     
+    public Button pickupButton;
     public Image crosshair;
     public Color normalColor = Color.white;
     public Color highlightColor = Color.green;
 
-    [Header("Counter")]
-    public TextMeshProUGUI woodText;
-    public TextMeshProUGUI rockText;
+    [Header("UI - Fire")]
+    public Button fireButton;      // nút icon lửa
+    public Image fireIcon;         // nếu muốn chỉnh màu/icon
+
+    [Header("Refs")]
+    public CraftingManager craftingManager;
 
     private GameObject target;
-    private int woodCount = 0;
-    private int rockCount = 0;
-
     private PlayerControls controls;
 
     void Awake()
     {
         controls = new PlayerControls();
 
-        // Chỉ PC mới lắng nghe phím F
+        // PC: nhặt đồ = F
 #if UNITY_EDITOR || UNITY_STANDALONE
-        controls.Player.Pickup.performed += ctx => Pickup();
+        controls.Player.Pickup.performed += ctx => {
+            if (target != null && (target.CompareTag("wood") || target.CompareTag("rock")))
+                Pickup(); 
+        };
+
+        // PC: đốt bếp = G
+        controls.Player.InteractSpecial.performed += ctx => {
+            if (target != null && target.CompareTag("firepit"))
+            {
+                Firepit pit = target.GetComponent<Firepit>();
+                if (pit != null) pit.ToggleFire();
+            }
+        };
 #endif
     }
 
@@ -44,20 +56,39 @@ public class CrosshairPickup : MonoBehaviour
         if (pickupButton != null)
         {
             pickupButton.gameObject.SetActive(false);
-            pickupButton.onClick.AddListener(Pickup); // Mobile
+            pickupButton.onClick.AddListener(() =>
+            {
+                if (target != null)
+                {
+                    if (target.CompareTag("wood") || target.CompareTag("rock"))
+                        Pickup();
+                    else if (target.CompareTag("firepit"))
+                        target.GetComponent<Firepit>()?.ToggleFire();
+                }
+            });
         }
 
-        if (crosshair != null)
-            crosshair.color = normalColor;
+        if (fireButton != null)
+        {
+            fireButton.onClick.AddListener(() =>
+            {
+                if (target != null && target.CompareTag("firepit"))
+                {
+                    Firepit pit = target.GetComponent<Firepit>();
+                    if (pit != null) pit.ToggleFire();
+                }
+            });
+        }
 
-        if (cam == null)
-            cam = Camera.main;
+        if (crosshair != null) crosshair.color = normalColor;
+        if (cam == null) cam = Camera.main;
     }
 
     void Update()
     {
         target = null;
         if (pickupButton != null) pickupButton.gameObject.SetActive(false);
+        if (fireButton != null) fireButton.gameObject.SetActive(false);
         if (crosshair != null) crosshair.color = normalColor;
 
         Ray ray = cam.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
@@ -66,28 +97,34 @@ public class CrosshairPickup : MonoBehaviour
             if (hit.collider.CompareTag("wood") || hit.collider.CompareTag("rock"))
             {
                 target = hit.collider.gameObject;
-                if (pickupButton != null) pickupButton.gameObject.SetActive(true); // Mobile
+                if (pickupButton != null) pickupButton.gameObject.SetActive(true);
+                if (crosshair != null) crosshair.color = highlightColor;
+            }
+            else if (hit.collider.CompareTag("firepit"))
+            {
+                target = hit.collider.gameObject;
+                if (fireButton != null) fireButton.gameObject.SetActive(true);
                 if (crosshair != null) crosshair.color = highlightColor;
             }
         }
     }
 
+
     void Pickup()
     {
-        if (target == null) return;
+        if (target == null || craftingManager == null) return;
 
         if (target.CompareTag("wood"))
         {
-            woodCount++;
-            if (woodText != null) woodText.text = "x" + woodCount;
+            craftingManager.AddWood(1);
+            Destroy(target);
         }
         else if (target.CompareTag("rock"))
         {
-            rockCount++;
-            if (rockText != null) rockText.text = "x" + rockCount;
+            craftingManager.AddRock(1);
+            Destroy(target);
         }
 
-        Destroy(target);
         if (pickupButton != null) pickupButton.gameObject.SetActive(false);
         if (crosshair != null) crosshair.color = normalColor;
         target = null;

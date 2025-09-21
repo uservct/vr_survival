@@ -10,7 +10,7 @@ TagManager:
   - CinemachineTarget
   - Anchor
   - rock
-  - Food
+  - firepit
   layers:
   - Default
   - TransparentFX

@@ -14,6 +14,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "InteractSpecial",
+                    "type": "Button",
+                    "id": "1f54a1d0-6b78-480f-befe-9682ada84204",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -30,12 +39,12 @@
                 },
                 {
                     "name": "",
-                    "id": "723fe350-cb3a-4227-a56b-02bd270434d6",
-                    "path": "",
+                    "id": "1ca319e6-d3db-4350-83a7-4e39cbfbf6ad",
+                    "path": "<Keyboard>/g",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Pickup",
+                    "action": "InteractSpecial",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

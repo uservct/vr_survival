@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a170ee5a117c6f4997bb972b5d2fb50, type: 3}
+  m_Name: FirepitRecipe
+  m_EditorClassIdentifier: 
+  recipeName: Firepit
+  icon: {fileID: -2055672499, guid: be5bb73b10238b342af267e7d7c968fb, type: 3}
+  prefab: {fileID: 1179792248266456, guid: ec39bf1eab5d68e458bfbc770c88d84f, type: 3}
+  woodRequired: 5
+  rockRequired: 3
