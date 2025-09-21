@@ -9,6 +9,7 @@ TagManager:
   - coconut
   - CinemachineTarget
   - Anchor
+  - rock
   layers:
   - Default
   - TransparentFX

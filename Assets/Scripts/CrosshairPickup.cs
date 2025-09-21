@@ -1,32 +1,50 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.InputSystem; // Input System New
 
 public class CrosshairPickup : MonoBehaviour
 {
     [Header("Raycast")]
-    public Camera cam;              // Main Camera (XR Origin)
+    public Camera cam;
     public float maxDistance = 5f;
-    public LayerMask interactMask;  // layer Interactable
+    public LayerMask interactMask;
 
     [Header("UI")]
-    public Button pickupButton;     // nút Nhặt (UI Button)
-    public Image crosshair;         // ảnh Crosshair
+    public Button pickupButton;     
+    public Image crosshair;
     public Color normalColor = Color.white;
     public Color highlightColor = Color.green;
 
     [Header("Counter")]
     public TextMeshProUGUI woodText;
+    public TextMeshProUGUI rockText;
 
     private GameObject target;
     private int woodCount = 0;
+    private int rockCount = 0;
+
+    private PlayerControls controls;
+
+    void Awake()
+    {
+        controls = new PlayerControls();
+
+        // Chỉ PC mới lắng nghe phím F
+#if UNITY_EDITOR || UNITY_STANDALONE
+        controls.Player.Pickup.performed += ctx => Pickup();
+#endif
+    }
+
+    void OnEnable() => controls.Enable();
+    void OnDisable() => controls.Disable();
 
     void Start()
     {
         if (pickupButton != null)
         {
             pickupButton.gameObject.SetActive(false);
-            pickupButton.onClick.AddListener(Pickup);
+            pickupButton.onClick.AddListener(Pickup); // Mobile
         }
 
         if (crosshair != null)
@@ -45,33 +63,33 @@ public class CrosshairPickup : MonoBehaviour
         Ray ray = cam.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
         if (Physics.Raycast(ray, out RaycastHit hit, maxDistance, interactMask))
         {
-            Debug.Log("Raycast hit: " + hit.collider.name);  // 👈 Thêm dòng này
-
-            if (hit.collider.CompareTag("wood"))
+            if (hit.collider.CompareTag("wood") || hit.collider.CompareTag("rock"))
             {
                 target = hit.collider.gameObject;
-                if (pickupButton != null) pickupButton.gameObject.SetActive(true);
+                if (pickupButton != null) pickupButton.gameObject.SetActive(true); // Mobile
                 if (crosshair != null) crosshair.color = highlightColor;
             }
         }
     }
 
-
     void Pickup()
     {
         if (target == null) return;
 
-        // Tăng số lượng gỗ
-        woodCount++;
-        if (woodText != null)
-            woodText.text = "x" + woodCount;
+        if (target.CompareTag("wood"))
+        {
+            woodCount++;
+            if (woodText != null) woodText.text = "x" + woodCount;
+        }
+        else if (target.CompareTag("rock"))
+        {
+            rockCount++;
+            if (rockText != null) rockText.text = "x" + rockCount;
+        }
 
-        // Xoá gỗ trong scene
         Destroy(target);
-
-        // Reset UI
-        pickupButton.gameObject.SetActive(false);
-        crosshair.color = normalColor;
+        if (pickupButton != null) pickupButton.gameObject.SetActive(false);
+        if (crosshair != null) crosshair.color = normalColor;
         target = null;
     }
 }
