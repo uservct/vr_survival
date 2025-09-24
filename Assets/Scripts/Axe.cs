@@ -14,6 +14,10 @@ public class Axe : MonoBehaviour
     public float swingAngle = 45f;   // góc vung
     public float swingSpeed = 10f;   // tốc độ vung
 
+    [Header("Audio")]
+    public AudioClip chopSound;        // gán file âm thanh chặt
+    private AudioSource audioSource;
+
     private bool isSwinging = false;
     void Awake()
     {
@@ -28,6 +32,10 @@ public class Axe : MonoBehaviour
 #endif
     }
 
+    void Start()
+    {
+        audioSource = GetComponent<AudioSource>();
+    }
     void OnEnable() => controls.Enable();
     void OnDisable() => controls.Disable();
 
@@ -91,6 +99,11 @@ public class Axe : MonoBehaviour
                 else
                 {
                     Debug.LogWarning("Tree.cs not found on " + hit.collider.name);
+                }
+                 // phát âm thanh chặt gỗ
+                if (audioSource && chopSound)
+                {
+                    audioSource.PlayOneShot(chopSound);
                 }
             }
 

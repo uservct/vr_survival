@@ -125,6 +125,7 @@ MonoBehaviour:
   health: 5
   woodPrefab: {fileID: 1378948830390276, guid: b339591963b4eb944ad46937768d4bc9, type: 3}
   woodDrop: 3
+  breakSound: {fileID: 0}
 --- !u!1 &1720328307436147672
 GameObject:
   m_ObjectHideFlags: 0
@@ -312,6 +313,7 @@ MonoBehaviour:
   health: 5
   woodPrefab: {fileID: 1378948830390276, guid: b339591963b4eb944ad46937768d4bc9, type: 3}
   woodDrop: 3
+  breakSound: {fileID: 8300000, guid: 35de22a6f5871f442aa74a9261ee74ec, type: 3}
 --- !u!1 &8169898343365794049
 GameObject:
   m_ObjectHideFlags: 0
