@@ -12,9 +12,10 @@ GameObject:
   - component: {fileID: 2812287724108380338}
   - component: {fileID: 1394057832663195253}
   - component: {fileID: 460594235835775966}
+  - component: {fileID: 4176151168318431847}
   m_Layer: 0
   m_Name: PT_Pine_Tree_03_green_LOD0
-  m_TagString: tree
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -105,10 +106,25 @@ BoxCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Size: {x: 0.6855711, y: 3.4348059, z: 0.48335168}
   m_Center: {x: -0.013858378, y: 1.1929975, z: -0.06256954}
+--- !u!114 &4176151168318431847
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 649165938051307759}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f92cf2be1fea6624bbbfd7eb56edf0b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 5
+  woodPrefab: {fileID: 1378948830390276, guid: b339591963b4eb944ad46937768d4bc9, type: 3}
+  woodDrop: 3
 --- !u!1 &1720328307436147672
 GameObject:
   m_ObjectHideFlags: 0
@@ -206,7 +222,9 @@ GameObject:
   m_Component:
   - component: {fileID: 6894979521318456901}
   - component: {fileID: 1870679391148259636}
-  m_Layer: 0
+  - component: {fileID: 1808725810189448786}
+  - component: {fileID: 9156578112033492639}
+  m_Layer: 7
   m_Name: PT_Pine_Tree_03_green
   m_TagString: tree
   m_Icon: {fileID: 0}
@@ -258,6 +276,42 @@ LODGroup:
     renderers:
     - renderer: {fileID: 7013654394060798706}
   m_Enabled: 1
+--- !u!65 &1808725810189448786
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6117071349010126079}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.5463001, y: 2.85899, z: 0.48933458}
+  m_Center: {x: -0.012602776, y: 0.8979074, z: -0.04474902}
+--- !u!114 &9156578112033492639
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6117071349010126079}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f92cf2be1fea6624bbbfd7eb56edf0b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 5
+  woodPrefab: {fileID: 1378948830390276, guid: b339591963b4eb944ad46937768d4bc9, type: 3}
+  woodDrop: 3
 --- !u!1 &8169898343365794049
 GameObject:
   m_ObjectHideFlags: 0

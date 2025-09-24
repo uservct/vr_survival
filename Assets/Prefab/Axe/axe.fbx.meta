@@ -3,12 +3,7 @@ guid: b951dd81fc85e354abb1292313bb30ab
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects:
-  - first:
-      type: UnityEngine:Texture2D
-      assembly: UnityEngine.CoreModule
-      name: axe_low_Material.001_BaseColor
-    second: {fileID: 2800000, guid: b355fd808cc43644bae620aaad645136, type: 3}
+  externalObjects: {}
   materials:
     materialImportMode: 2
     materialName: 0

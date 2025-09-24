@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   recipeName: Axe
   icon: {fileID: 1997366707, guid: 3aa42cd54cacd9041915ac3be4c22e12, type: 3}
-  prefab: {fileID: 8640203071485065081, guid: c7a8d9acdbf7b3c4885e0059b222b22f, type: 3}
+  prefab: {fileID: 40873259803931320, guid: 23b65e2b58909844bb31389492cc6ad9, type: 3}
   woodRequired: 1
   rockRequired: 1
