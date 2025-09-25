@@ -33,7 +33,7 @@ public class CrosshairPickup : MonoBehaviour
         // PC: nhặt đồ = F
 #if UNITY_EDITOR || UNITY_STANDALONE
         controls.Player.Pickup.performed += ctx => {
-            if (target != null && (target.CompareTag("wood") || target.CompareTag("rock")))
+            if (target != null && (target.CompareTag("wood") || target.CompareTag("rock") || target.CompareTag("axe")))
                 Pickup(); 
         };
 
@@ -94,7 +94,8 @@ public class CrosshairPickup : MonoBehaviour
         Ray ray = cam.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
         if (Physics.Raycast(ray, out RaycastHit hit, maxDistance, interactMask))
         {
-            if (hit.collider.CompareTag("wood") || hit.collider.CompareTag("rock"))
+             Debug.Log("Ray hit: " + hit.collider.name + " | Tag: " + hit.collider.tag);
+            if (hit.collider.CompareTag("wood") || hit.collider.CompareTag("rock") || hit.collider.CompareTag("axe"))
             {
                 target = hit.collider.gameObject;
                 if (pickupButton != null) pickupButton.gameObject.SetActive(true);
@@ -123,6 +124,14 @@ public class CrosshairPickup : MonoBehaviour
         {
             craftingManager.AddRock(1);
             Destroy(target);
+        }
+        else if (target.CompareTag("axe"))
+        {
+            Axe axe = target.GetComponent<Axe>();
+            if (axe != null)
+            {
+                axe.PickUp();
+            }
         }
 
         if (pickupButton != null) pickupButton.gameObject.SetActive(false);
