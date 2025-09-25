@@ -1,55 +1,62 @@
 ﻿using UnityEngine;
 
-public enum WeatherType { Clear, Rain }
-
 public class WeatherManager : MonoBehaviour
 {
-    [Header("Weather Effects")]
-    public GameObject rainEffect;
-    public AudioSource rainSound;
+    public GameObject rainEffect;   // Particle mưa
+    public AudioSource rainSound;   // Âm thanh mưa
+    public Light sunLight;          // Nguồn sáng chính (mặt trời)
+    public float weatherDuration = 30f; // Thời gian 1 kiểu thời tiết (giây)
 
-    [Header("Settings")]
-    public WeatherType currentWeather = WeatherType.Clear;
+    private float timer;
+    private enum WeatherType { Sunny, Rainy, Foggy }
+    private WeatherType currentWeather;
 
     void Start()
     {
-        UpdateWeather(currentWeather);
+        SetWeather(WeatherType.Sunny); // Bắt đầu với trời nắng
+        timer = weatherDuration;
     }
 
     void Update()
     {
-        // Debug test: nhấn phím R để bật/tắt mưa
-        if (Input.GetKeyDown(KeyCode.R))
+        timer -= Time.deltaTime;
+        if (timer <= 0f)
         {
-            if (currentWeather == WeatherType.Clear)
-                SetWeather(WeatherType.Rain);
-            else
-                SetWeather(WeatherType.Clear);
+            // Chuyển sang thời tiết khác ngẫu nhiên
+            WeatherType newWeather = (WeatherType)Random.Range(0, 3);
+            SetWeather(newWeather);
+
+            timer = weatherDuration;
         }
     }
 
-    public void SetWeather(WeatherType newWeather)
+    void SetWeather(WeatherType type)
     {
-        currentWeather = newWeather;
-        UpdateWeather(newWeather);
-    }
+        currentWeather = type;
 
-    void UpdateWeather(WeatherType weather)
-    {
-        switch (weather)
+        switch (type)
         {
-            case WeatherType.Clear:
+            case WeatherType.Sunny:
                 rainEffect.SetActive(false);
                 rainSound.Stop();
-                RenderSettings.fog = false; // tắt sương mù
+                RenderSettings.fog = false;
+                sunLight.intensity = 1f;
                 break;
 
-            case WeatherType.Rain:
+            case WeatherType.Rainy:
                 rainEffect.SetActive(true);
-                if (!rainSound.isPlaying) rainSound.Play();
+                rainSound.Play();
                 RenderSettings.fog = true;
-                RenderSettings.fogColor = new Color(0.4f, 0.4f, 0.45f);
-                RenderSettings.fogDensity = 0.01f;
+                RenderSettings.fogDensity = 0.02f;
+                sunLight.intensity = 0.5f;
+                break;
+
+            case WeatherType.Foggy:
+                rainEffect.SetActive(false);
+                rainSound.Stop();
+                RenderSettings.fog = true;
+                RenderSettings.fogDensity = 0.05f;
+                sunLight.intensity = 0.6f;
                 break;
         }
     }

@@ -3,8 +3,8 @@ Shader "Custom/SkyboxBlend"
     Properties
     {
         _Blend ("Blend", Range(0,1)) = 0.0
-        _Tex1 ("Day Skybox", Cube) = "" {}
-        _Tex2 ("Night Skybox", Cube) = "" {}
+        _Tex1 ("Night Skybox", Cube) = "" {}
+        _Tex2 ("Day Skybox", Cube) = "" {}
     }
     SubShader
     {
