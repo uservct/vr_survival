@@ -14,7 +14,8 @@ GameObject:
   - component: {fileID: 4726074341049944304}
   - component: {fileID: -5450222295866287707}
   - component: {fileID: -8468910694488431415}
-  m_Layer: 6
+  - component: {fileID: 7260616033773548213}
+  m_Layer: 0
   m_Name: Log_01
   m_TagString: wood
   m_Icon: {fileID: 0}
@@ -135,7 +136,7 @@ Rigidbody:
   m_ImplicitTensor: 1
   m_UseGravity: 1
   m_IsKinematic: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_Constraints: 0
   m_CollisionDetection: 0
 --- !u!114 &-8468910694488431415
@@ -260,3 +261,17 @@ MonoBehaviour:
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
   m_FarAttachMode: 0
+--- !u!114 &7260616033773548213
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1447987709244396459}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a540c3896c903cf4db9aceb73e941ae9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  resourceType: 0
+  amount: 1
