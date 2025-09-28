@@ -2,56 +2,67 @@ using UnityEngine;
 
 public class Tree : MonoBehaviour
 {
-    public int health = 5;          // số hit cần để đốn
-    public GameObject woodPrefab;   // prefab gỗ rơi ra
-    public int woodDrop = 3;        // số lượng gỗ rơi
-    [Header("Audio")]
-    public AudioClip breakSound;      // âm thanh khi cây gãy / spawn gỗ
-    private AudioSource audioSource;
+    [Header("Máu Cây")]
+    public int health = 3;
 
-    void Start()
-    {
-        // gắn AudioSource tự động
-        audioSource = gameObject.AddComponent<AudioSource>();
-        audioSource.spatialBlend = 1f; // 3D sound
-    }
+    [Header("Gỗ rơi ra khi chặt")]
+    [Tooltip("Prefab item gỗ sẽ spawn ra khi cây bị chặt đổ")]
+    public GameObject woodPrefab;
 
-    public void Chop()
+    [Tooltip("Số lượng gỗ spawn ra")]
+    public int woodCount = 3;
+
+    [Tooltip("Khoảng cách ngẫu nhiên quanh cây khi spawn")]
+    public float spawnRadius = 0.5f;
+
+    [Header("Âm thanh")]
+    [Tooltip("Âm thanh khi cây bị đổ / gỗ spawn ra")]
+    public AudioClip spawnSound;
+    [Range(0f, 1f)] public float spawnVolume = 1f;
+
+    private bool isDestroyed = false;
+
+    public void TakeDamage(int damage)
     {
-        health--;
-        Debug.Log("Tree hit! HP = " + health);
+        if (isDestroyed) return;
+
+        health -= damage;
+        Debug.Log($"[Tree] {gameObject.name} bị chặt! HP còn: {health}");
 
         if (health <= 0)
         {
-            ChopDown();
+            BreakTree();
         }
     }
 
-    void ChopDown()
+    private void BreakTree()
     {
+        isDestroyed = true;
 
-        // spawn gỗ
-        for (int i = 0; i < woodDrop; i++)
+        Debug.Log($"🌳 {gameObject.name} bị đổ! Spawn {woodCount} gỗ.");
+
+        // Spawn gỗ
+        if (woodPrefab != null)
         {
-            Vector3 pos = transform.position + Random.insideUnitSphere * 0.5f;
-            pos.y = transform.position.y;
-            Instantiate(woodPrefab, pos, Quaternion.identity);
+            for (int i = 0; i < woodCount; i++)
+            {
+                Vector3 randomOffset = new Vector3(
+                    Random.Range(-spawnRadius, spawnRadius),
+                    0.2f,
+                    Random.Range(-spawnRadius, spawnRadius)
+                );
+                Vector3 spawnPos = transform.position + randomOffset;
+                Instantiate(woodPrefab, spawnPos, Quaternion.identity);
+            }
         }
 
-        // phát âm thanh cây gãy bằng audio tạm
-        if (breakSound != null)
+        // Phát âm thanh
+        if (spawnSound != null)
         {
-            GameObject tempAudio = new GameObject("TreeBreakSound");
-            tempAudio.transform.position = transform.position;
-            AudioSource a = tempAudio.AddComponent<AudioSource>();
-            a.spatialBlend = 1f;
-            a.clip = breakSound;
-            a.Play();
-            Destroy(tempAudio, breakSound.length); // hủy sau khi phát xong
+            AudioSource.PlayClipAtPoint(spawnSound, transform.position, spawnVolume);
         }
 
-        // xóa cây ngay lập tức
+        // Xóa cây
         Destroy(gameObject);
     }
 }
-

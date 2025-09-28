@@ -14,9 +14,10 @@ GameObject:
   - component: {fileID: 7742067584146533175}
   - component: {fileID: -1243994799272331385}
   - component: {fileID: 5974153481654195246}
-  - component: {fileID: 3465230917540147508}
-  - component: {fileID: -230448191512685968}
-  m_Layer: 6
+  - component: {fileID: -8122539857605233171}
+  - component: {fileID: -8097213490587377411}
+  - component: {fileID: 170006325954453284}
+  m_Layer: 0
   m_Name: axe
   m_TagString: axe
   m_Icon: {fileID: 0}
@@ -32,7 +33,7 @@ Transform:
   m_GameObject: {fileID: 40873259803931320}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1377.272, y: 18.444761, z: 587.31836}
+  m_LocalPosition: {x: 1377.272, y: 17, z: 587.31836}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -110,7 +111,7 @@ MeshCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 5
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 915282652387810440, guid: b951dd81fc85e354abb1292313bb30ab, type: 3}
 --- !u!114 &-1243994799272331385
@@ -125,13 +126,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff19b5e6b0198fb4ba41d113780fddba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  chopRange: 2.5
-  treeMask:
+  checkRadius: 0.15
+  speedThreshold: 1.5
+  hitCooldown: 0.3
+  treeLayer:
     serializedVersion: 2
-    m_Bits: 160
-  swingAngle: 45
-  swingSpeed: 10
+    m_Bits: 128
   chopSound: {fileID: 8300000, guid: 463f4e09b01e6df4296ca15093c5c59a, type: 3}
+  volume: 1
 --- !u!82 &5974153481654195246
 AudioSource:
   m_ObjectHideFlags: 0
@@ -229,7 +231,22 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!54 &3465230917540147508
+--- !u!114 &-8122539857605233171
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 40873259803931320}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a540c3896c903cf4db9aceb73e941ae9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  resourceType: 0
+  amount: 1
+  isTool: 1
+--- !u!54 &-8097213490587377411
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -253,10 +270,10 @@ Rigidbody:
   m_ImplicitTensor: 1
   m_UseGravity: 1
   m_IsKinematic: 0
-  m_Interpolate: 1
+  m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &-230448191512685968
+--- !u!114 &170006325954453284
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

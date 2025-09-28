@@ -1,137 +1,85 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
-using System.Collections;
+
 public class Axe : MonoBehaviour
 {
-    private Transform handSlot;
-    private bool isEquipped = false;
-    private PlayerControls controls;
+    [Header("Cấu hình chặt cây")]
+    [Tooltip("Bán kính vùng kiểm tra quanh đầu rìu")]
+    public float checkRadius = 0.15f;
 
-    [Header("Axe Settings")]
-    public float chopRange = 2.5f;     // khoảng cách chặt
-    public LayerMask treeMask;         // layer cây
+    [Tooltip("Ngưỡng tốc độ tối thiểu để tính là chặt trúng (m/s)")]
+    public float speedThreshold = 1.5f;
 
-    public float swingAngle = 45f;   // góc vung
-    public float swingSpeed = 10f;   // tốc độ vung
+    [Tooltip("Thời gian giữa 2 lần chặt (giây)")]
+    public float hitCooldown = 0.3f;
 
-    [Header("Audio")]
-    public AudioClip chopSound;        // gán file âm thanh chặt
+    [Tooltip("Layer chứa các cây")]
+    public LayerMask treeLayer;
+
+    [Header("Âm thanh")]
+    [Tooltip("Âm thanh phát khi chặt trúng cây")]
+    public AudioClip chopSound;
+
+    [Tooltip("Âm lượng phát âm thanh")]
+    [Range(0f, 1f)]
+    public float volume = 1f;
+
+    private Vector3 prevPos;
+    private float lastHitTime;
     private AudioSource audioSource;
-
-    private bool isSwinging = false;
-    void Awake()
-    {
-        controls = new PlayerControls();
-
-#if UNITY_EDITOR || UNITY_STANDALONE
-        // PC: phím R để cất / lấy rìu
-        controls.Player.ToggleWeapon.performed += ctx => ToggleEquip();
-
-        // PC: chuột trái để chặt
-        controls.Player.Chop.performed += ctx => Swing();
-#endif
-    }
 
     void Start()
     {
+        prevPos = transform.position;
+
+        // Tạo AudioSource nếu chưa có
         audioSource = GetComponent<AudioSource>();
-    }
-    void OnEnable() => controls.Enable();
-    void OnDisable() => controls.Disable();
-
-    // Khi nhặt rìu
-    public void PickUp()
-    {
-        if (handSlot == null)
+        if (audioSource == null)
         {
-            GameObject slotObj = GameObject.Find("HandSlot");
-            if (slotObj != null) handSlot = slotObj.transform;
+            audioSource = gameObject.AddComponent<AudioSource>();
         }
+        audioSource.spatialBlend = 1f; // âm thanh 3D
+        audioSource.playOnAwake = false;
 
-        if (handSlot == null) return;
-
-        transform.SetParent(handSlot);
-        transform.localPosition = Vector3.zero;
-        transform.localRotation = Quaternion.identity;
-        isEquipped = true;
+        Debug.Log("🪓 Axe khởi động!");
     }
 
-    // Toggle bằng phím R
-    void ToggleEquip()
+    void Update()
     {
-        if (handSlot == null) return;
+        // Tính tốc độ đầu rìu (mỗi frame)
+        float speed = (transform.position - prevPos).magnitude / Time.deltaTime;
+        prevPos = transform.position;
 
-        MeshRenderer renderer = GetComponentInChildren<MeshRenderer>();
+        // Nếu chưa hết cooldown thì bỏ qua
+        if (Time.time - lastHitTime < hitCooldown) return;
 
-        if (isEquipped)
+        // Kiểm tra vùng xung quanh đầu rìu
+        Collider[] hits = Physics.OverlapSphere(transform.position, checkRadius, treeLayer);
+        if (hits.Length == 0) return;
+
+        // Lặp qua các đối tượng bị đụng
+        foreach (var hit in hits)
         {
-            if (renderer) renderer.enabled = false; // ẩn model
-            isEquipped = false;
-        }
-        else
-        {
-            if (renderer) renderer.enabled = true; // hiện lại model
-            isEquipped = true;
-        }
-    }
-
-    void Swing()
-    {
-        Debug.Log("Swing called!");  // <- nếu input hoạt động thì sẽ in dòng này
-
-        if (!isEquipped || isSwinging) return;
-        StartCoroutine(SwingRoutine());
-
-        Camera cam = Camera.main;
-        Ray ray = new Ray(cam.transform.position, cam.transform.forward);
-
-        if (Physics.Raycast(ray, out RaycastHit hit, chopRange, treeMask))
-        {
-            Debug.Log("Ray hit from Axe: " + hit.collider.name + " | Tag: " + hit.collider.tag);
-
-            if (hit.collider.CompareTag("tree"))
+            Tree tree = hit.GetComponent<Tree>();
+            if (tree != null && speed >= speedThreshold)
             {
-                Tree tree = hit.collider.GetComponentInParent<Tree>(); // lấy từ parent
-                if (tree != null)
-                {
-                    tree.Chop();
-                }
-                else
-                {
-                    Debug.LogWarning("Tree.cs not found on " + hit.collider.name);
-                }
-                 // phát âm thanh chặt gỗ
-                if (audioSource && chopSound)
-                {
-                    audioSource.PlayOneShot(chopSound);
-                }
-            }
+                Debug.Log($"🌲 Chặt trúng cây {hit.name} | tốc độ: {speed:0.00} m/s");
+                tree.TakeDamage(1);
+                lastHitTime = Time.time;
 
+                // Phát âm thanh
+                if (chopSound != null)
+                    audioSource.PlayOneShot(chopSound, volume);
+
+                // Ngắt vòng để không chặt nhiều cây 1 lúc
+                break;
+            }
         }
     }
-    IEnumerator SwingRoutine()
+
+    // Vẽ vùng kiểm tra trong Scene
+    void OnDrawGizmosSelected()
     {
-        isSwinging = true;
-        Quaternion startRot = transform.localRotation;
-        Quaternion targetRot = startRot * Quaternion.Euler(-swingAngle, -35f, 0);
-
-        float t = 0;
-        while (t < 1f)
-        {
-            t += Time.deltaTime * swingSpeed;
-            transform.localRotation = Quaternion.Slerp(startRot, targetRot, t);
-            yield return null;
-        }
-
-        // trở về
-        t = 0;
-        while (t < 1f)
-        {
-            t += Time.deltaTime * swingSpeed;
-            transform.localRotation = Quaternion.Slerp(targetRot, startRot, t);
-            yield return null;
-        }
-
-        isSwinging = false;
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position, checkRadius);
     }
 }

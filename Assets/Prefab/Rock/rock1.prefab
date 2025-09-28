@@ -53,6 +53,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -2931631193766622982, guid: f226223b3a11d2d4b980aaa520301583, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -2931631193766622982, guid: f226223b3a11d2d4b980aaa520301583, type: 3}
       propertyPath: m_TagString
       value: Untagged
       objectReference: {fileID: 0}
@@ -68,8 +72,36 @@ PrefabInstance:
       propertyPath: m_TagString
       value: rock
       objectReference: {fileID: 0}
+    - target: {fileID: 4742473837712756890, guid: f226223b3a11d2d4b980aaa520301583, type: 3}
+      propertyPath: m_LODs.Array.data[0].screenRelativeHeight
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4742473837712756890, guid: f226223b3a11d2d4b980aaa520301583, type: 3}
+      propertyPath: m_LODs.Array.data[1].screenRelativeHeight
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4742473837712756890, guid: f226223b3a11d2d4b980aaa520301583, type: 3}
+      propertyPath: m_LODs.Array.data[2].screenRelativeHeight
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4742473837712756890, guid: f226223b3a11d2d4b980aaa520301583, type: 3}
+      propertyPath: m_LODs.Array.data[0].renderers.Array.data[0].renderer
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4742473837712756890, guid: f226223b3a11d2d4b980aaa520301583, type: 3}
+      propertyPath: m_LODs.Array.data[1].renderers.Array.data[0].renderer
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4742473837712756890, guid: f226223b3a11d2d4b980aaa520301583, type: 3}
+      propertyPath: m_LODs.Array.data[2].renderers.Array.data[0].renderer
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 4790688033558502258, guid: f226223b3a11d2d4b980aaa520301583, type: 3}
       propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4790688033558502258, guid: f226223b3a11d2d4b980aaa520301583, type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4790688033558502258, guid: f226223b3a11d2d4b980aaa520301583, type: 3}
@@ -291,3 +323,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   resourceType: 1
   amount: 1
+  isTool: 0

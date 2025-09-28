@@ -3,6 +3,12 @@ using TMPro;
 
 public class CraftingManager : MonoBehaviour
 {
+    // Thêm static instance để các script khác có thể truy cập
+    public static CraftingManager instance;
+
+    // Enum để định nghĩa các loại tài nguyên
+    public enum ResourceType { Wood, Stone }
+
     [Header("Refs")]
     public Transform player;          // PlayerCapsule hoặc XR Origin
     public Transform buildPoint;      // Empty đặt trước mặt player
@@ -20,22 +26,34 @@ public class CraftingManager : MonoBehaviour
     public LayerMask groundMask = ~0;   // layer mặt đất
     public float dropFromHeight = 2f;   // raycast từ trên xuống
 
+    void Awake()
+    {
+        // Khởi tạo Singleton
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
     void Start()
     {
         UpdateUI();
     }
 
-    // Thêm gỗ
-    public void AddWood(int amount)
+    // Thêm tài nguyên
+    public void AddResource(ResourceType type, int amount)
     {
-        woodCount += amount;
-        UpdateUI();
-    }
-
-    // Thêm đá
-    public void AddRock(int amount)
-    {
-        rockCount += amount;
+        if (type == ResourceType.Wood)
+        {
+            woodCount += amount;
+        }
+        else if (type == ResourceType.Stone)
+        {
+            rockCount += amount;
+        }
         UpdateUI();
     }
 

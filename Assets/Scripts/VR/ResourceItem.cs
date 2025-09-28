@@ -3,8 +3,9 @@ using UnityEngine.XR.Interaction.Toolkit;
 
 public class ResourceItem : MonoBehaviour
 {
-    public ResourceType resourceType; // Chọn loại tài nguyên cho vật thể này
-    public int amount = 1; // Số lượng tài nguyên nhận được
+    public CraftingManager.ResourceType resourceType; 
+    public int amount = 1;
+    public bool isTool = false;
 
     private UnityEngine.XR.Interaction.Toolkit.Interactables.XRGrabInteractable grabInteractable;
 
@@ -17,20 +18,24 @@ public class ResourceItem : MonoBehaviour
             return;
         }
 
-        // Đăng ký sự kiện khi vật thể được nhặt (grab)
-        grabInteractable.selectExited.AddListener(OnResourceGrabbed);
+        grabInteractable.selectExited.AddListener(OnSelectExited);
     }
-
-    private void OnResourceGrabbed(SelectExitEventArgs args)
+    
+    // Xử lý khi người chơi nhả vật thể
+    private void OnSelectExited(SelectExitEventArgs args)
     {
-        // Khi người chơi thả vật thể, thêm tài nguyên và hủy đối tượng
-        // Sử dụng selectExited để vật thể biến mất khi người chơi thả tay cầm, tránh bị "giật"
-        if (InventoryManager.instance != null)
+        if (!isTool)
         {
-            InventoryManager.instance.AddResource(resourceType, amount);
+            if (CraftingManager.instance != null)
+            {
+                CraftingManager.instance.AddResource(resourceType, amount);
+            }
+            Destroy(gameObject);
         }
-
-        // Hủy đối tượng vật thể
-        Destroy(gameObject);
+        else
+        {
+            // Logic cho công cụ sẽ được xử lý bởi XR Socket Interactor
+            
+        }
     }
 }
