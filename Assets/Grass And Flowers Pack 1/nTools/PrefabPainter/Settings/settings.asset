@@ -3316,7 +3316,7 @@ MonoBehaviour:
       customPreviewImage: {fileID: 0}
     - name: wood
       settings:
-        brushRadius: 15
+        brushRadius: 0.01
         brushSpacing: 5
         brushOverlapCheckMode: 0
         brushOverlapDistance: 0.5
@@ -3593,10 +3593,10 @@ MonoBehaviour:
         gridNormal: {x: 0, y: 1, z: 0}
         gridAngle: 0
       prefabSlots:
-      - gameObject: {fileID: 1447987709244396459, guid: 64aaa8c698778aa4798fa25e58dd80d1, type: 3}
-      - gameObject: {fileID: 8140620975964691567, guid: 66d759fbcd8eae14dad067e1cdcf382b, type: 3}
-      - gameObject: {fileID: 8411952824353029793, guid: d47b703f8d498d9498921b1933c19ce0, type: 3}
-      - gameObject: {fileID: 7525229300158187260, guid: 5778615d7db0bfa46bf5662edb95106c, type: 3}
+      - gameObject: {fileID: 1447987709244396459, guid: 86c3857f2508dc641956e323a5a609f3, type: 3}
+      - gameObject: {fileID: 8140620975964691567, guid: bf76d94354008d341b0c5c0b77b9dc93, type: 3}
+      - gameObject: {fileID: 8411952824353029793, guid: b01cc8e56e0cdd242b8a9a189663cfa4, type: 3}
+      - gameObject: {fileID: 7525229300158187260, guid: 4a69d27d73c178a48b3ba491886ad017, type: 3}
       - gameObject: {fileID: 0}
       - gameObject: {fileID: 0}
       - gameObject: {fileID: 0}
@@ -3625,7 +3625,7 @@ MonoBehaviour:
       - gameObject: {fileID: 0}
       - gameObject: {fileID: 0}
       - gameObject: {fileID: 0}
-      selectedSlot: 0
+      selectedSlot: 3
       selected: 0
       colorTag: 0
       customPreviewImage: {fileID: 0}
@@ -3946,7 +3946,7 @@ MonoBehaviour:
       customPreviewImage: {fileID: 0}
     - name: Rock
       settings:
-        brushRadius: 42
+        brushRadius: 0.01
         brushSpacing: 5
         brushOverlapCheckMode: 0
         brushOverlapDistance: 0.5
@@ -4255,7 +4255,7 @@ MonoBehaviour:
       - gameObject: {fileID: 0}
       - gameObject: {fileID: 0}
       - gameObject: {fileID: 0}
-      selectedSlot: 0
+      selectedSlot: 1
       selected: 0
       colorTag: 0
       customPreviewImage: {fileID: 0}
@@ -4893,12 +4893,12 @@ MonoBehaviour:
       settings:
         brushRadius: 0.01
         brushSpacing: 0.01
-        brushOverlapCheckMode: 1
-        brushOverlapDistance: 1
+        brushOverlapCheckMode: 0
+        brushOverlapDistance: 2.38
         brushOverlapCheckObjects: 2
         brushOverlapCheckLayers:
           serializedVersion: 2
-          m_Bits: 128
+          m_Bits: 0
         surfaceOffset: -0.1
         orientationTransformMode: 0
         orientationMode: 2
@@ -5201,7 +5201,7 @@ MonoBehaviour:
       - gameObject: {fileID: 0}
       - gameObject: {fileID: 0}
       selectedSlot: 0
-      selected: 1
+      selected: 0
       colorTag: 0
       customPreviewImage: {fileID: 0}
     levelsGamma: 1
@@ -5226,11 +5226,11 @@ MonoBehaviour:
   pinSnapScale: 0
   placeAngleStep: 15
   placeScaleStep: 0.1
-  eraseBrushRadius: 3
+  eraseBrushRadius: 24
   eraseByLayer: 1
   eraseLayers:
     serializedVersion: 2
-    m_Bits: 32
+    m_Bits: 128
   selectBrushRadius: 5
   selectByLayer: 0
   selectLayers:

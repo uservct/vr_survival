@@ -3,7 +3,7 @@ using UnityEngine.XR.Interaction.Toolkit;
 
 public class ResourceItem : MonoBehaviour
 {
-    public CraftingManager.ResourceType resourceType; 
+    public CraftingManager.ResourceType resourceType;
     public int amount = 1;
     public bool isTool = false;
 
@@ -14,28 +14,55 @@ public class ResourceItem : MonoBehaviour
         grabInteractable = GetComponent<UnityEngine.XR.Interaction.Toolkit.Interactables.XRGrabInteractable>();
         if (grabInteractable == null)
         {
-            Debug.LogError("XRGrabInteractable component not found on this object!");
+            Debug.LogError("❌ XRGrabInteractable not found on " + gameObject.name);
             return;
         }
 
         grabInteractable.selectExited.AddListener(OnSelectExited);
     }
-    
-    // Xử lý khi người chơi nhả vật thể
+
     private void OnSelectExited(SelectExitEventArgs args)
     {
-        if (!isTool)
+        if (isTool) return;
+
+        string tagName = gameObject.tag;
+
+        // 🍳 Nấm chín → ăn
+        if (tagName == "mushroom_cooked")
+        {
+            PlayerStats stats = FindObjectOfType<PlayerStats>();
+            if (stats != null)
+            {
+                stats.AddHunger(20f); // tùy chỉnh giá trị
+                stats.Heal(5f);
+                Debug.Log("😋 Ăn nấm chín → +20 Hunger, +5 Health");
+            }
+            else
+            {
+                Debug.LogWarning("⚠️ PlayerStats not found!");
+            }
+
+            Destroy(gameObject);
+            return;
+        }
+
+        // 🍄 Nấm sống → cộng kho
+        if (tagName == "mushroom_raw")
         {
             if (CraftingManager.instance != null)
             {
-                CraftingManager.instance.AddResource(resourceType, amount);
+                CraftingManager.instance.AddResource(CraftingManager.ResourceType.Mushroom, amount);
+                Debug.Log("🍄 Nhặt nấm sống → +1 Mushroom");
             }
-            Destroy(gameObject);
+
+            gameObject.SetActive(false);
+            return;
         }
-        else
-        {
-            // Logic cho công cụ sẽ được xử lý bởi XR Socket Interactor
-            
-        }
+
+        // 🪵 Gỗ, đá → cộng kho + xóa
+        if (CraftingManager.instance != null)
+            CraftingManager.instance.AddResource(resourceType, amount);
+
+        Destroy(gameObject);
     }
 }

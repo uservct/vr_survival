@@ -12,6 +12,8 @@ TagManager:
   - rock
   - firepit
   - axe
+  - mushroom_raw
+  - mushroom_cooked
   layers:
   - Default
   - TransparentFX
@@ -21,7 +23,7 @@ TagManager:
   - UI
   - Interactable
   - tree
-  - 
+  - Terrain
   - 
   - 
   - 

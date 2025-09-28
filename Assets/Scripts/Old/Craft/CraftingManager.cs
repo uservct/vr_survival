@@ -7,7 +7,7 @@ public class CraftingManager : MonoBehaviour
     public static CraftingManager instance;
 
     // Enum để định nghĩa các loại tài nguyên
-    public enum ResourceType { Wood, Stone }
+    public enum ResourceType { Wood, Stone, Mushroom }
 
     [Header("Refs")]
     public Transform player;          // PlayerCapsule hoặc XR Origin
@@ -17,10 +17,12 @@ public class CraftingManager : MonoBehaviour
     [Header("Inventory UI")]
     public TextMeshProUGUI woodText;
     public TextMeshProUGUI rockText;
+    public TextMeshProUGUI mushroomText;
 
     [Header("Counts")]
     public int woodCount = 0;
     public int rockCount = 0;
+    public int mushroomCount = 0;
 
     [Header("Grounding (optional)")]
     public LayerMask groundMask = ~0;   // layer mặt đất
@@ -53,6 +55,10 @@ public class CraftingManager : MonoBehaviour
         else if (type == ResourceType.Stone)
         {
             rockCount += amount;
+        }
+        else if (type == ResourceType.Mushroom)
+        {
+            mushroomCount += amount;
         }
         UpdateUI();
     }
@@ -95,9 +101,10 @@ public class CraftingManager : MonoBehaviour
         Instantiate(recipe.prefab, spawnPos, spawnRot, parent);
     }
 
-    void UpdateUI()
+    public void UpdateUI()
     {
         if (woodText) woodText.text = "x" + woodCount;
         if (rockText) rockText.text = "x" + rockCount;
+        if (mushroomText) mushroomText.text = "x" + mushroomCount;
     }
 }
