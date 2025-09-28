@@ -6,17 +6,16 @@ public class Tree : MonoBehaviour
     public int health = 3;
 
     [Header("Gỗ rơi ra khi chặt")]
-    [Tooltip("Prefab item gỗ sẽ spawn ra khi cây bị chặt đổ")]
     public GameObject woodPrefab;
-
-    [Tooltip("Số lượng gỗ spawn ra")]
     public int woodCount = 3;
-
-    [Tooltip("Khoảng cách ngẫu nhiên quanh cây khi spawn")]
     public float spawnRadius = 0.5f;
 
+    [Header("Quả dừa (nếu là cây dừa)")]
+    public bool isCoconutTree = false;
+    public GameObject coconutPrefab;
+    public int coconutCount = 2;
+
     [Header("Âm thanh")]
-    [Tooltip("Âm thanh khi cây bị đổ / gỗ spawn ra")]
     public AudioClip spawnSound;
     [Range(0f, 1f)] public float spawnVolume = 1f;
 
@@ -39,24 +38,18 @@ public class Tree : MonoBehaviour
     {
         isDestroyed = true;
 
-        Debug.Log($"🌳 {gameObject.name} bị đổ! Spawn {woodCount} gỗ.");
+        Debug.Log($"🌳 {gameObject.name} bị đổ! Spawn {woodCount} gỗ{(isCoconutTree ? " + dừa" : "")}.");
 
         // Spawn gỗ
-        if (woodPrefab != null)
+        SpawnItems(woodPrefab, woodCount);
+
+        // Spawn dừa (nếu là cây dừa)
+        if (isCoconutTree && coconutPrefab != null)
         {
-            for (int i = 0; i < woodCount; i++)
-            {
-                Vector3 randomOffset = new Vector3(
-                    Random.Range(-spawnRadius, spawnRadius),
-                    0.2f,
-                    Random.Range(-spawnRadius, spawnRadius)
-                );
-                Vector3 spawnPos = transform.position + randomOffset;
-                Instantiate(woodPrefab, spawnPos, Quaternion.identity);
-            }
+            SpawnItems(coconutPrefab, coconutCount);
         }
 
-        // Phát âm thanh
+        // Âm thanh
         if (spawnSound != null)
         {
             AudioSource.PlayClipAtPoint(spawnSound, transform.position, spawnVolume);
@@ -64,5 +57,29 @@ public class Tree : MonoBehaviour
 
         // Xóa cây
         Destroy(gameObject);
+    }
+
+    private void SpawnItems(GameObject prefab, int count)
+    {
+        if (prefab == null) return;
+
+        for (int i = 0; i < count; i++)
+        {
+            Vector3 randomOffset = new Vector3(
+                Random.Range(-spawnRadius, spawnRadius),
+                0.5f,
+                Random.Range(-spawnRadius, spawnRadius)
+            );
+            Vector3 spawnPos = transform.position + randomOffset;
+
+            GameObject item = Instantiate(prefab, spawnPos, Quaternion.identity);
+
+            // Thêm lực nhẹ cho vật rơi tự nhiên
+            Rigidbody rb = item.GetComponent<Rigidbody>();
+            if (rb != null)
+            {
+                rb.AddForce(Vector3.up * 2f, ForceMode.Impulse);
+            }
+        }
     }
 }

@@ -59,6 +59,23 @@ public class ResourceItem : MonoBehaviour
             return;
         }
 
+        // 🥥 Dừa → tăng khát nước
+        if (tagName == "coconut")
+        {
+            PlayerStats stats = FindObjectOfType<PlayerStats>();
+            if (stats != null)
+            {
+                stats.AddThirst(30f); // tăng 30 thirst
+                Debug.Log("🥥 Uống nước dừa → +30 Thirst");
+            }
+            else
+            {
+                Debug.LogWarning("⚠️ PlayerStats not found!");
+            }
+
+            Destroy(gameObject);
+            return;
+        }
         // 🪵 Gỗ, đá → cộng kho + xóa
         if (CraftingManager.instance != null)
             CraftingManager.instance.AddResource(resourceType, amount);
