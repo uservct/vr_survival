@@ -7,6 +7,10 @@ public class ResourceItem : MonoBehaviour
     public int amount = 1;
     public bool isTool = false;
 
+    [Header("Âm thanh nhặt đồ")]
+    public AudioClip pickupSound;
+    [Range(0f, 1f)] public float pickupVolume = 1f;
+
     private UnityEngine.XR.Interaction.Toolkit.Interactables.XRGrabInteractable grabInteractable;
 
     void Start()
@@ -79,7 +83,14 @@ public class ResourceItem : MonoBehaviour
         // 🪵 Gỗ, đá → cộng kho + xóa
         if (CraftingManager.instance != null)
             CraftingManager.instance.AddResource(resourceType, amount);
-
+        PlayPickupSound();
         Destroy(gameObject);
+    }
+    private void PlayPickupSound()
+    {
+        if (pickupSound != null)
+        {
+            AudioSource.PlayClipAtPoint(pickupSound, transform.position, pickupVolume);
+        }
     }
 }

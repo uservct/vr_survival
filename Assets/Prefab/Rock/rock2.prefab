@@ -74,7 +74,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: e5e1b3c0d2be60b47981235187af0936, type: 3}
       propertyPath: m_Name
-      value: PT_River_Rock_Pile_02
+      value: rock2
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: e5e1b3c0d2be60b47981235187af0936, type: 3}
       propertyPath: m_Layer
@@ -291,3 +291,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   resourceType: 1
   amount: 1
+  isTool: 0
+  pickupSound: {fileID: 8300000, guid: 1a25e47648942954d8f2af239612b209, type: 3}
+  pickupVolume: 1

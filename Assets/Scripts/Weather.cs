@@ -1,34 +1,49 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
-public enum WeatherType { Clear, Rain }
+public enum WeatherState { Clear, Rain }
 
-public class WeatherManager : MonoBehaviour
+public class Weather : MonoBehaviour
 {
     [Header("Weather Effects")]
+    [Tooltip("Prefab hiệu ứng mưa (ParticleSystem) có AudioSource mưa gắn sẵn")]
     public GameObject rainEffect;
-    private AudioSource rainAudio;
 
     [Header("Ambient Sounds")]
+    [Tooltip("Âm thanh môi trường khi trời quang (chim, gió nhẹ)")]
     public AudioSource ambientClear;
+
+    [Tooltip("Âm thanh môi trường khi trời mưa (gió, ếch, nước nhỏ giọt)")]
     public AudioSource ambientRain;
 
-    [Header("Settings")]
-    public WeatherType currentWeather = WeatherType.Clear;
+    [Header("Weather Settings")]
+    public WeatherState currentWeather = WeatherState.Clear;
 
     [Header("Random Settings")]
+    [Tooltip("Thời gian tối thiểu giữa các lần kiểm tra thời tiết")]
     public float minInterval = 30f;
+
+    [Tooltip("Thời gian tối đa giữa các lần kiểm tra thời tiết")]
     public float maxInterval = 60f;
+
+    [Tooltip("Khoảng thời gian mưa kéo dài (min, max)")]
     public Vector2 rainDurationRange = new Vector2(20f, 40f);
+
+    [Tooltip("Tỉ lệ xác suất mưa (0 = không bao giờ, 1 = luôn mưa)")]
     [Range(0f, 1f)] public float rainProbability = 0.4f;
+
+    private AudioSource rainAudio;
 
     void Start()
     {
-        // ✅ Gộp tất cả logic vào đây
+        // Lấy AudioSource từ object mưa nếu có
         if (rainEffect != null)
             rainAudio = rainEffect.GetComponent<AudioSource>();
 
+        // Cập nhật thời tiết ban đầu
         UpdateWeather(currentWeather);
+
+        // Bắt đầu vòng lặp thay đổi thời tiết tự động
         StartCoroutine(AutoWeatherCycle());
     }
 
@@ -36,34 +51,37 @@ public class WeatherManager : MonoBehaviour
     {
         while (true)
         {
+            // ⏳ Chờ 1 khoảng ngẫu nhiên
             float waitTime = Random.Range(minInterval, maxInterval);
             yield return new WaitForSeconds(waitTime);
 
+            // 🎲 Xác định có mưa hay không
             bool shouldRain = Random.value < rainProbability;
 
-            if (shouldRain && currentWeather == WeatherType.Clear)
+            if (shouldRain && currentWeather == WeatherState.Clear)
             {
-                SetWeather(WeatherType.Rain);
+                SetWeather(WeatherState.Rain);
 
                 float rainTime = Random.Range(rainDurationRange.x, rainDurationRange.y);
                 yield return new WaitForSeconds(rainTime);
 
-                SetWeather(WeatherType.Clear);
+                SetWeather(WeatherState.Clear);
             }
         }
     }
 
-    public void SetWeather(WeatherType newWeather)
+    public void SetWeather(WeatherState newWeather)
     {
         currentWeather = newWeather;
         UpdateWeather(newWeather);
     }
 
-    void UpdateWeather(WeatherType weather)
+    void UpdateWeather(WeatherState weather)
     {
         switch (weather)
         {
-            case WeatherType.Clear:
+            case WeatherState.Clear:
+                // ☀️ Trời quang
                 if (rainEffect) rainEffect.SetActive(false);
                 if (rainAudio && rainAudio.isPlaying) rainAudio.Stop();
 
@@ -74,7 +92,8 @@ public class WeatherManager : MonoBehaviour
                 Debug.Log("🌤️ Thời tiết: Trời quang");
                 break;
 
-            case WeatherType.Rain:
+            case WeatherState.Rain:
+                // 🌧️ Trời mưa
                 if (rainEffect) rainEffect.SetActive(true);
                 if (rainAudio && !rainAudio.isPlaying) rainAudio.Play();
 
@@ -84,6 +103,7 @@ public class WeatherManager : MonoBehaviour
                 RenderSettings.fog = true;
                 RenderSettings.fogColor = new Color(0.4f, 0.4f, 0.45f);
                 RenderSettings.fogDensity = 0.01f;
+
                 Debug.Log("🌧️ Thời tiết: Mưa");
                 break;
         }
