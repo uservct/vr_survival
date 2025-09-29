@@ -163,10 +163,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f92cf2be1fea6624bbbfd7eb56edf0b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 5
+  health: 3
   woodPrefab: {fileID: 1378948830390276, guid: b339591963b4eb944ad46937768d4bc9, type: 3}
-  woodDrop: 3
-  breakSound: {fileID: 8300000, guid: 35de22a6f5871f442aa74a9261ee74ec, type: 3}
+  woodCount: 3
+  spawnRadius: 0.5
+  spawnSound: {fileID: 8300000, guid: 35de22a6f5871f442aa74a9261ee74ec, type: 3}
+  spawnVolume: 1
 --- !u!65 &2061534647972109757
 BoxCollider:
   m_ObjectHideFlags: 0
