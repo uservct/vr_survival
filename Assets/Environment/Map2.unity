@@ -278434,7 +278434,7 @@ MonoBehaviour:
   rainEffect: {fileID: 856898377}
   ambientClear: {fileID: 455873104}
   ambientRain: {fileID: 0}
-  currentWeather: 0
+  currentWeather: 1
   minInterval: 30
   maxInterval: 60
   rainDurationRange: {x: 20, y: 40}
