@@ -280,3 +280,8 @@ MonoBehaviour:
   resourceType: 0
   amount: 1
   isTool: 0
+  pickupSound: {fileID: 8300000, guid: 1a25e47648942954d8f2af239612b209, type: 3}
+  pickupVolume: 0.5
+  eatSound: {fileID: 0}
+  drinkSound: {fileID: 8300000, guid: 10018f96b2ffeb2478556d9aa7870c85, type: 3}
+  consumeVolume: 1

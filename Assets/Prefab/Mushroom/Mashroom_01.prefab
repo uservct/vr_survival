@@ -278,6 +278,11 @@ MonoBehaviour:
   resourceType: 2
   amount: 1
   isTool: 0
+  pickupSound: {fileID: 8300000, guid: 1a25e47648942954d8f2af239612b209, type: 3}
+  pickupVolume: 0.5
+  eatSound: {fileID: 8300000, guid: 2afc3ab86b260a647ada4ac2f1a597c6, type: 3}
+  drinkSound: {fileID: 0}
+  consumeVolume: 1
 --- !u!114 &6708551314611475623
 MonoBehaviour:
   m_ObjectHideFlags: 0

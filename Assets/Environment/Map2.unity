@@ -17274,13 +17274,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 109790897}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.6582554, y: -0.18941422, z: 0.17637897, w: 0.7069036}
-  m_LocalPosition: {x: 1099.8148, y: 171.3064, z: 766.46704}
+  m_LocalRotation: {x: 0.07899004, y: -0.42101002, z: -0.902859, w: -0.03683366}
+  m_LocalPosition: {x: 1099.8148, y: 273.2, z: 766.46704}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 85.918, y: -30, z: 0}
+  m_LocalEulerAnglesHint: {x: 230, y: 170, z: 0}
 --- !u!1001 &109991949
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -262059,8 +262059,8 @@ GameObject:
   - component: {fileID: 1699893871}
   - component: {fileID: 1699893872}
   - component: {fileID: 1699893873}
-  - component: {fileID: 1699893874}
   - component: {fileID: 1699893875}
+  - component: {fileID: 1699893876}
   m_Layer: 0
   m_Name: 'GameManager '
   m_TagString: Untagged
@@ -262126,33 +262126,13 @@ MonoBehaviour:
   woodText: {fileID: 1281880664}
   rockText: {fileID: 902113290}
   mushroomText: {fileID: 1886154550}
-  woodCount: 222
-  rockCount: 222
+  woodCount: 0
+  rockCount: 0
   mushroomCount: 0
   groundMask:
     serializedVersion: 2
     m_Bits: 4294967295
   dropFromHeight: 2
---- !u!114 &1699893874
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1699893869}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 555c16683349d454b88857ae94584be2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rainEffect: {fileID: 0}
-  ambientClear: {fileID: 0}
-  ambientRain: {fileID: 0}
-  currentWeather: 0
-  minInterval: 30
-  maxInterval: 60
-  rainDurationRange: {x: 20, y: 40}
-  rainProbability: 0.4
 --- !u!114 &1699893875
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -262174,6 +262154,25 @@ MonoBehaviour:
   hungerDecreaseRate: 10
   thirstDecreaseRate: 6.4
   healthDecreaseRate: 4.12
+--- !u!114 &1699893876
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1699893869}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 555c16683349d454b88857ae94584be2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeOfDay: 12
+  dayLengthInMinutes: 1
+  sunLight: {fileID: 1858357021}
+  moonLight: {fileID: 109790899}
+  skyboxBlendMat: {fileID: 2100000, guid: a474366a06dc9574584b6862bd2b73e3, type: 2}
+  dayAmbient: {r: 1, g: 0.95, b: 0.85, a: 1}
+  nightAmbient: {r: 0.05, g: 0.1, b: 0.2, a: 1}
 --- !u!1001 &1700485369
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -286371,8 +286370,8 @@ Light:
   m_Enabled: 1
   serializedVersion: 11
   m_Type: 1
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 1
+  m_Color: {r: 1, g: 0.9607843, b: 0.88235295, a: 1}
+  m_Intensity: 1.2
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -286434,13 +286433,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1858357019}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.5887269, y: 0.0051043024, z: 0.21710013, w: 0.77861553}
-  m_LocalPosition: {x: 964, y: 110.47519, z: 835}
+  m_LocalRotation: {x: 0.03683366, y: 0.902859, z: -0.42101002, w: 0.07899004}
+  m_LocalPosition: {x: 1103.6, y: 264.1, z: 835}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 66.144, y: 40.671, z: 58.297}
+  m_LocalEulerAnglesHint: {x: 50, y: 170, z: 0}
 --- !u!1001 &1858443811
 PrefabInstance:
   m_ObjectHideFlags: 0
