@@ -3032,6 +3032,17 @@
                     "action": "Toggle Crafting UI",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d5d75b3a-d784-4cd5-a3e1-cc5509234dce",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Toggle Crafting UI",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         },
