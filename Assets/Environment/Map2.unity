@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 2100000, guid: 59573b088aaea0442bf29e0a0e9d1339, type: 2}
+  m_SkyboxMaterial: {fileID: 2100000, guid: a474366a06dc9574584b6862bd2b73e3, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -37,7 +37,7 @@ RenderSettings:
   m_ReflectionBounces: 1
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
-  m_Sun: {fileID: 1727032667}
+  m_Sun: {fileID: 0}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -96229,6 +96229,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Mashroom_03
       objectReference: {fileID: 0}
+    - target: {fileID: 2750792171378555062, guid: edc148ab083dc3341afaba21f6926b23, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3271608166948921868, guid: edc148ab083dc3341afaba21f6926b23, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1305.449
@@ -132902,6 +132906,10 @@ PrefabInstance:
     - target: {fileID: 6681895219105188891, guid: f6709c34f5f5eb5419c2bb2583ed6f6d, type: 3}
       propertyPath: m_Layer
       value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 6681895219105188891, guid: f6709c34f5f5eb5419c2bb2583ed6f6d, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6681895219105188891, guid: f6709c34f5f5eb5419c2bb2583ed6f6d, type: 3}
       propertyPath: m_TagString
@@ -173830,6 +173838,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: coconut (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 1073542804799126221, guid: aeaea7dd5f1c989438211cc6412398a4, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -193565,6 +193577,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PT_Pine_Tree_03_green
       objectReference: {fileID: 0}
+    - target: {fileID: 6117071349010126079, guid: 4624f4fac2fbcb444ad2bf07a356ddec, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6894979521318456901, guid: 4624f4fac2fbcb444ad2bf07a356ddec, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1301.3291
@@ -207030,6 +207046,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Mashroom_02
       objectReference: {fileID: 0}
+    - target: {fileID: 400831721113087497, guid: a40d202f878a46944b7d2d69c2e58092, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1070690125267547315, guid: a40d202f878a46944b7d2d69c2e58092, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1306.4114
@@ -216419,6 +216439,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PT_Fruit_Tree_01_plums
       objectReference: {fileID: 0}
+    - target: {fileID: 7296054959696050501, guid: 7347e8d53c4f6d44bb1fa2a3d087b00e, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7929462325123785727, guid: 7347e8d53c4f6d44bb1fa2a3d087b00e, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1307.6095
@@ -223356,6 +223380,10 @@ PrefabInstance:
     - target: {fileID: 3731107947933824154, guid: a1675f1dcd8169a42b094b3e9db70b37, type: 3}
       propertyPath: m_Name
       value: fullcoconut (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3731107947933824154, guid: a1675f1dcd8169a42b094b3e9db70b37, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4043646228533227762, guid: a1675f1dcd8169a42b094b3e9db70b37, type: 3}
       propertyPath: m_LocalPosition.x
@@ -256431,6 +256459,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Mashroom_04
       objectReference: {fileID: 0}
+    - target: {fileID: 2696940029666833365, guid: f28f413b212ecad41a51e807136353e8, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3325525727421589871, guid: f28f413b212ecad41a51e807136353e8, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1304.239
@@ -262166,13 +262198,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 555c16683349d454b88857ae94584be2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeOfDay: 12
+  skyboxBlendMat: {fileID: 2100000, guid: a474366a06dc9574584b6862bd2b73e3, type: 2}
+  timeOfDay: 19.4
   dayLengthInMinutes: 1
   sunLight: {fileID: 1858357021}
   moonLight: {fileID: 109790899}
-  skyboxBlendMat: {fileID: 2100000, guid: a474366a06dc9574584b6862bd2b73e3, type: 2}
-  dayAmbient: {r: 1, g: 0.95, b: 0.85, a: 1}
-  nightAmbient: {r: 0.05, g: 0.1, b: 0.2, a: 1}
 --- !u!1001 &1700485369
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -265732,7 +265762,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1727032666
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -268673,6 +268703,10 @@ PrefabInstance:
     - target: {fileID: 8133037186379474956, guid: facb46f5ca176e2469f56f2904ced5ee, type: 3}
       propertyPath: m_Name
       value: Mashroom_05
+      objectReference: {fileID: 0}
+    - target: {fileID: 8133037186379474956, guid: facb46f5ca176e2469f56f2904ced5ee, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8905176216881902262, guid: facb46f5ca176e2469f56f2904ced5ee, type: 3}
       propertyPath: m_LocalPosition.x
@@ -290099,7 +290133,7 @@ MonoBehaviour:
   rainEffect: {fileID: 856898377}
   ambientClear: {fileID: 455873104}
   ambientRain: {fileID: 0}
-  currentWeather: 1
+  currentWeather: 0
   minInterval: 30
   maxInterval: 60
   rainDurationRange: {x: 20, y: 40}
