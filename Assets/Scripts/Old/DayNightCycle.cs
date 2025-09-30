@@ -1,91 +1,67 @@
 ﻿using UnityEngine;
-using System.Collections;
 
-public enum WeatherType { Clear, Rain }
-
-public class WeatherManager : MonoBehaviour
+public class DayNightCycle : MonoBehaviour
 {
-    [Header("Weather Effects")]
-    public GameObject rainEffect;
-    private AudioSource rainAudio;
+    [Header("Time Settings")]
+    [Range(0, 24)] public float timeOfDay = 12f;   // Giờ hiện tại
+    public float dayLengthInMinutes = 2f;          // 1 ngày trong game dài bao nhiêu phút
+    private float timeSpeed;                       // tốc độ chạy thời gian
 
-    [Header("Ambient Sounds")]
-    public AudioSource ambientClear;
-    public AudioSource ambientRain;
+    [Header("Lighting")]
+    public Light sunLight;
+    public Light moonLight;
+    public Material skyboxBlendMat;
 
-    [Header("Settings")]
-    public WeatherType currentWeather = WeatherType.Clear;
-
-    [Header("Random Settings")]
-    public float minInterval = 30f;
-    public float maxInterval = 60f;
-    public Vector2 rainDurationRange = new Vector2(20f, 40f);
-    [Range(0f, 1f)] public float rainProbability = 0.4f;
+    [Header("Environment Colors")]
+    public Color dayAmbient = new Color(1f, 0.95f, 0.85f);
+    public Color nightAmbient = new Color(0.05f, 0.1f, 0.2f);
 
     void Start()
     {
-        // ✅ Gộp tất cả logic vào đây
-        if (rainEffect != null)
-            rainAudio = rainEffect.GetComponent<AudioSource>();
+        // Tốc độ chạy: 24h chia cho tổng số giây 1 ngày
+        timeSpeed = 24f / (dayLengthInMinutes * 60f);
 
-        UpdateWeather(currentWeather);
-        StartCoroutine(AutoWeatherCycle());
+        if (skyboxBlendMat != null)
+            RenderSettings.skybox = skyboxBlendMat;
     }
 
-    IEnumerator AutoWeatherCycle()
+    void Update()
     {
-        while (true)
+        // Cập nhật thời gian
+        timeOfDay += Time.deltaTime * timeSpeed;
+        if (timeOfDay >= 24f) timeOfDay = 0f;
+
+        UpdateLighting();
+    }
+
+    void UpdateLighting()
+    {
+        // blend từ 0-1
+        float t = Mathf.InverseLerp(6f, 18f, timeOfDay); // ngày từ 6h-18h
+
+        // Xoay mặt trời & mặt trăng
+        float sunRot = (timeOfDay / 24f) * 360f - 90f;
+        sunLight.transform.rotation = Quaternion.Euler(sunRot, 170f, 0f);
+        moonLight.transform.rotation = Quaternion.Euler(sunRot + 180f, 170f, 0f);
+
+        // Cường độ sáng
+        sunLight.intensity = Mathf.Lerp(0f, 1.2f, t);
+        moonLight.intensity = Mathf.Lerp(0.5f, 0f, t);
+
+        // Ánh sáng môi trường
+        RenderSettings.ambientLight = Color.Lerp(nightAmbient, dayAmbient, t);
+
+        // Skybox blend
+        if (skyboxBlendMat != null)
         {
-            float waitTime = Random.Range(minInterval, maxInterval);
-            yield return new WaitForSeconds(waitTime);
-
-            bool shouldRain = Random.value < rainProbability;
-
-            if (shouldRain && currentWeather == WeatherType.Clear)
-            {
-                SetWeather(WeatherType.Rain);
-
-                float rainTime = Random.Range(rainDurationRange.x, rainDurationRange.y);
-                yield return new WaitForSeconds(rainTime);
-
-                SetWeather(WeatherType.Clear);
-            }
+            skyboxBlendMat.SetFloat("_Blend", t);
         }
-    }
 
-    public void SetWeather(WeatherType newWeather)
-    {
-        currentWeather = newWeather;
-        UpdateWeather(newWeather);
-    }
-
-    void UpdateWeather(WeatherType weather)
-    {
-        switch (weather)
+        // Fog
+        if (RenderSettings.fog)
         {
-            case WeatherType.Clear:
-                if (rainEffect) rainEffect.SetActive(false);
-                if (rainAudio && rainAudio.isPlaying) rainAudio.Stop();
-
-                if (ambientClear && !ambientClear.isPlaying) ambientClear.Play();
-                if (ambientRain && ambientRain.isPlaying) ambientRain.Stop();
-
-                RenderSettings.fog = false;
-                Debug.Log("🌤️ Thời tiết: Trời quang");
-                break;
-
-            case WeatherType.Rain:
-                if (rainEffect) rainEffect.SetActive(true);
-                if (rainAudio && !rainAudio.isPlaying) rainAudio.Play();
-
-                if (ambientRain && !ambientRain.isPlaying) ambientRain.Play();
-                if (ambientClear && ambientClear.isPlaying) ambientClear.Stop();
-
-                RenderSettings.fog = true;
-                RenderSettings.fogColor = new Color(0.4f, 0.4f, 0.45f);
-                RenderSettings.fogDensity = 0.01f;
-                Debug.Log("🌧️ Thời tiết: Mưa");
-                break;
+            RenderSettings.fogColor = Color.Lerp(nightAmbient, dayAmbient, t);
+            RenderSettings.fogDensity = Mathf.Lerp(0.02f, 0.004f, t);
         }
     }
 }
