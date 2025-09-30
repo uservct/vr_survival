@@ -14,15 +14,23 @@ public class PlayerStats : MonoBehaviour
     public float thirst = 100f;
 
     [Header("Rates")]
-    public float hungerDecreaseRate = 10f; // mỗi 2 giây giảm 1
-    public float thirstDecreaseRate = 5f; // mỗi 1 giây giảm 1
-    public float healthDecreaseRate = 1f; // giảm máu khi đói/khát = 0
+    public float hungerDecreaseRate = 10f; // mỗi 10 giây giảm 1
+    public float thirstDecreaseRate = 5f;  // mỗi 5 giây giảm 1
+    public float healthDecreaseRate = 1f;  // máu giảm khi đói/khát
+
+    [Header("Rain Effect")]
+    public float rainHealthDecreaseRate = 2f; // máu mất mỗi giây khi trời mưa
+    public Weather weatherSystem;             // tham chiếu script Weather
 
     private float hungerTimer;
     private float thirstTimer;
 
     void Start()
     {
+        if (healthBar) healthBar.maxValue = 100;
+        if (hungerBar) hungerBar.maxValue = 100;
+        if (thirstBar) thirstBar.maxValue = 100;
+
         UpdateUI();
     }
 
@@ -47,7 +55,13 @@ public class PlayerStats : MonoBehaviour
         // Nếu hunger hoặc thirst = 0 → giảm máu
         if (hunger <= 0 || thirst <= 0)
         {
-            health = Mathf.Max(0, health - healthDecreaseRate * Time.deltaTime);
+            TakeDamage(healthDecreaseRate * Time.deltaTime);
+        }
+
+        // Nếu trời mưa → giảm máu thêm
+        if (weatherSystem != null && weatherSystem.currentWeather == WeatherState.Rain)
+        {
+            TakeDamage(rainHealthDecreaseRate * Time.deltaTime);
         }
 
         UpdateUI();
@@ -60,19 +74,16 @@ public class PlayerStats : MonoBehaviour
         if (thirstBar) thirstBar.value = thirst;
     }
 
-    // Dùng khi ăn uống
-    public void AddHunger(float amount)
-    {
-        hunger = Mathf.Min(100, hunger + amount);
-    }
+    public void AddHunger(float amount) => hunger = Mathf.Min(100, hunger + amount);
+    public void AddThirst(float amount) => thirst = Mathf.Min(100, thirst + amount);
+    public void Heal(float amount) => health = Mathf.Min(100, health + amount);
 
-    public void AddThirst(float amount)
+    public void TakeDamage(float amount)
     {
-        thirst = Mathf.Min(100, thirst + amount);
-    }
-
-    public void Heal(float amount)
-    {
-        health = Mathf.Min(100, health + amount);
+        health = Mathf.Max(0, health - amount);
+        if (health <= 0)
+        {
+            Debug.Log("💀 Người chơi đã chết!");
+        }
     }
 }
