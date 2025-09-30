@@ -88,7 +88,12 @@ public class Weather : MonoBehaviour
                 if (ambientClear && !ambientClear.isPlaying) ambientClear.Play();
                 if (ambientRain && ambientRain.isPlaying) ambientRain.Stop();
 
-                RenderSettings.fog = false;
+                // Sương mù nhẹ khi trời quang
+                RenderSettings.fog = true;
+                // Sương mù xanh nhẹ
+                RenderSettings.fogColor = new Color(0.6f, 0.75f, 0.9f);              
+                RenderSettings.fogDensity = 0.002f; // mờ nhẹ
+
                 Debug.Log("🌤️ Thời tiết: Trời quang");
                 break;
 
@@ -100,12 +105,14 @@ public class Weather : MonoBehaviour
                 if (ambientRain && !ambientRain.isPlaying) ambientRain.Play();
                 if (ambientClear && ambientClear.isPlaying) ambientClear.Stop();
 
+                // Sương mù dày khi trời mưa
                 RenderSettings.fog = true;
-                RenderSettings.fogColor = new Color(0.4f, 0.4f, 0.45f);
-                RenderSettings.fogDensity = 0.01f;
+                RenderSettings.fogColor = new Color(0.4f, 0.4f, 0.45f); // màu tối xám
+                RenderSettings.fogDensity = 0.01f; // dày đặc hơn
 
                 Debug.Log("🌧️ Thời tiết: Mưa");
                 break;
         }
     }
+
 }

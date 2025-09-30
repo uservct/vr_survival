@@ -2,32 +2,26 @@
 
 public class DayNightCycle : MonoBehaviour
 {
-    [Header("Time Settings")]
-    [Range(0, 24)] public float timeOfDay = 12f;   // Giờ hiện tại
-    public float dayLengthInMinutes = 2f;          // 1 ngày trong game dài bao nhiêu phút
-    private float timeSpeed;                       // tốc độ chạy thời gian
+    [Header("Skybox Settings")]
+    public Material skyboxBlendMat; // Material sử dụng shader blend
+    [Range(0, 24)] public float timeOfDay = 12f;
+    public float dayLengthInMinutes = 1f;
 
-    [Header("Lighting")]
+    [Header("Lighting Settings")]
     public Light sunLight;
     public Light moonLight;
-    public Material skyboxBlendMat;
 
-    [Header("Environment Colors")]
-    public Color dayAmbient = new Color(1f, 0.95f, 0.85f);
-    public Color nightAmbient = new Color(0.05f, 0.1f, 0.2f);
+    private float timeSpeed;
 
     void Start()
     {
-        // Tốc độ chạy: 24h chia cho tổng số giây 1 ngày
         timeSpeed = 24f / (dayLengthInMinutes * 60f);
-
-        if (skyboxBlendMat != null)
-            RenderSettings.skybox = skyboxBlendMat;
+        RenderSettings.skybox = skyboxBlendMat;
     }
 
     void Update()
     {
-        // Cập nhật thời gian
+        // tăng thời gian
         timeOfDay += Time.deltaTime * timeSpeed;
         if (timeOfDay >= 24f) timeOfDay = 0f;
 
@@ -36,32 +30,34 @@ public class DayNightCycle : MonoBehaviour
 
     void UpdateLighting()
     {
-        // blend từ 0-1
-        float t = Mathf.InverseLerp(6f, 18f, timeOfDay); // ngày từ 6h-18h
+        // blend dao động (0 = đêm, 1 = ngày)
+        float blend = (1f - Mathf.Cos((timeOfDay / 24f) * Mathf.PI * 2f)) * 0.5f;
+
+        // Gán blend cho skybox
+        skyboxBlendMat.SetFloat("_Blend", blend);
+
+        // Sun mạnh ban ngày, Moon mạnh ban đêm
+        sunLight.intensity = Mathf.Lerp(0f, 1.2f, blend);  // ban ngày >1 cho sáng rõ
+        moonLight.intensity = Mathf.Lerp(0f, 0.5f, 1f - blend);
 
         // Xoay mặt trời & mặt trăng
-        float sunRot = (timeOfDay / 24f) * 360f - 90f;
-        sunLight.transform.rotation = Quaternion.Euler(sunRot, 170f, 0f);
-        moonLight.transform.rotation = Quaternion.Euler(sunRot + 180f, 170f, 0f);
+        float sunRotation = (timeOfDay / 24f) * 360f;
+        sunLight.transform.rotation = Quaternion.Euler(new Vector3(sunRotation - 90f, 170f, 0));
+        moonLight.transform.rotation = Quaternion.Euler(new Vector3(sunRotation - 270f, 170f, 0));
 
-        // Cường độ sáng
-        sunLight.intensity = Mathf.Lerp(0f, 1.2f, t);
-        moonLight.intensity = Mathf.Lerp(0.5f, 0f, t);
+        // Ambient light
+        RenderSettings.ambientLight = Color.Lerp(
+            new Color(0.05f, 0.1f, 0.2f), // đêm xanh tối
+            new Color(1f, 0.95f, 0.8f),   // ngày vàng sáng
+            blend
+        );
 
-        // Ánh sáng môi trường
-        RenderSettings.ambientLight = Color.Lerp(nightAmbient, dayAmbient, t);
-
-        // Skybox blend
-        if (skyboxBlendMat != null)
-        {
-            skyboxBlendMat.SetFloat("_Blend", t);
-        }
-
-        // Fog
+        // Nếu fog bật thì chỉnh lại cho hợp lý
         if (RenderSettings.fog)
         {
-            RenderSettings.fogColor = Color.Lerp(nightAmbient, dayAmbient, t);
-            RenderSettings.fogDensity = Mathf.Lerp(0.02f, 0.004f, t);
+            RenderSettings.fogDensity = Mathf.Lerp(0.01f, 0.002f, blend);
         }
     }
+
+
 }
