@@ -85731,6 +85731,135 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1070690125267547315, guid: a40d202f878a46944b7d2d69c2e58092, type: 3}
   m_PrefabInstance: {fileID: 2011014482}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &996365348
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 996365350}
+  - component: {fileID: 996365349}
+  m_Layer: 0
+  m_Name: rain sound
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!82 &996365349
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 996365348}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_Resource: {fileID: 8300000, guid: ed70f2db624b2ef4e9de34dce51f75d0, type: 3}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!4 &996365350
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 996365348}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1305.0961, y: 34.983433, z: 434.7147}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &996731378
 GameObject:
   m_ObjectHideFlags: 0
@@ -157055,7 +157184,6 @@ GameObject:
   - component: {fileID: 1858850810}
   - component: {fileID: 1858850807}
   - component: {fileID: 1858850809}
-  - component: {fileID: 1858850808}
   m_Layer: 0
   m_Name: 'GameManager '
   m_TagString: Untagged
@@ -157088,23 +157216,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4294967295
   dropFromHeight: 2
---- !u!114 &1858850808
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1858850806}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 555c16683349d454b88857ae94584be2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  skyboxBlendMat: {fileID: 2100000, guid: a474366a06dc9574584b6862bd2b73e3, type: 2}
-  timeOfDay: 19.4
-  dayLengthInMinutes: 1
-  sunLight: {fileID: 0}
-  moonLight: {fileID: 0}
 --- !u!114 &1858850809
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -157126,6 +157237,8 @@ MonoBehaviour:
   hungerDecreaseRate: 10
   thirstDecreaseRate: 6.4
   healthDecreaseRate: 4.12
+  rainHealthDecreaseRate: 2
+  weatherSystem: {fileID: 1874451810}
 --- !u!114 &1858850810
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -158818,8 +158931,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rainEffect: {fileID: 1126612424}
   ambientClear: {fileID: 0}
-  ambientRain: {fileID: 0}
-  currentWeather: 0
+  ambientRain: {fileID: 996365349}
+  currentWeather: 1
   minInterval: 30
   maxInterval: 60
   rainDurationRange: {x: 20, y: 40}
@@ -180340,3 +180453,4 @@ SceneRoots:
   - {fileID: 386968415}
   - {fileID: 1270842834}
   - {fileID: 698093426}
+  - {fileID: 996365350}
