@@ -3,6 +3,8 @@ using UnityEngine.SceneManagement; // cần cho LoadScene
 
 public class MainMenu : MonoBehaviour
 {
+    [Header("Tên Scene chơi chính")]
+    public string gameSceneName = "GameScene"; // ⚠️ đặt đúng tên scene
     // Gọi khi bấm nút New Game
     public void NewGame()
     {
