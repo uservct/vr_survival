@@ -3626,7 +3626,7 @@ MonoBehaviour:
       - gameObject: {fileID: 0}
       - gameObject: {fileID: 0}
       selectedSlot: 0
-      selected: 1
+      selected: 0
       colorTag: 0
       customPreviewImage: {fileID: 0}
     - name: tree
@@ -3946,7 +3946,7 @@ MonoBehaviour:
       customPreviewImage: {fileID: 0}
     - name: Rock
       settings:
-        brushRadius: 53.3
+        brushRadius: 4
         brushSpacing: 3.54
         brushOverlapCheckMode: 0
         brushOverlapDistance: 0.5
@@ -5206,7 +5206,7 @@ MonoBehaviour:
       customPreviewImage: {fileID: 0}
     - name: Mashroom_02
       settings:
-        brushRadius: 37.6
+        brushRadius: 3
         brushSpacing: 1.95
         brushOverlapCheckMode: 2
         brushOverlapDistance: 0.5
@@ -6151,8 +6151,8 @@ MonoBehaviour:
       customPreviewImage: {fileID: 0}
     - name: coconut
       settings:
-        brushRadius: 16.6
-        brushSpacing: 2.41
+        brushRadius: 1
+        brushSpacing: 0.5
         brushOverlapCheckMode: 0
         brushOverlapDistance: 0.5
         brushOverlapCheckObjects: 1
@@ -6169,8 +6169,8 @@ MonoBehaviour:
         randomizeOrientationZ: 0
         scaleTransformMode: 0
         scaleMode: 0
-        scaleUniformMin: 2
-        scaleUniformMax: 3
+        scaleUniformMin: 1
+        scaleUniformMax: 1.2
         scalePerAxisMin: {x: 1, y: 1, z: 1}
         scalePerAxisMax: {x: 1, y: 1, z: 1}
         pinFixedRotation: 0
@@ -6428,7 +6428,7 @@ MonoBehaviour:
         gridNormal: {x: 0, y: 1, z: 0}
         gridAngle: 0
       prefabSlots:
-      - gameObject: {fileID: 919132149155446097, guid: 7d605a147564df948b0b0265616f78d7, type: 3}
+      - gameObject: {fileID: 1073542804799126221, guid: aeaea7dd5f1c989438211cc6412398a4, type: 3}
       - gameObject: {fileID: 0}
       - gameObject: {fileID: 0}
       - gameObject: {fileID: 0}
@@ -6461,7 +6461,7 @@ MonoBehaviour:
       - gameObject: {fileID: 0}
       - gameObject: {fileID: 0}
       selectedSlot: 0
-      selected: 0
+      selected: 1
       colorTag: 0
       customPreviewImage: {fileID: 0}
     levelsGamma: 1

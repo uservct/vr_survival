@@ -80,8 +80,8 @@ public class ResourceItem : MonoBehaviour
             PlayerStats stats = FindObjectOfType<PlayerStats>();
             if (stats != null)
             {
-                stats.AddThirst(20f);
-                Debug.Log("🥥 Uống nước dừa → +20 Thirst");
+                stats.AddThirst(15f);
+                Debug.Log("🥥 Uống nước dừa → +15 Thirst");
             }
             else
             {

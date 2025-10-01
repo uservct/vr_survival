@@ -1,20 +1,42 @@
 ﻿using UnityEngine;
-using UnityEngine.SceneManagement; // cần cho LoadScene
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class MainMenu : MonoBehaviour
 {
     [Header("Tên Scene chơi chính")]
-    public string gameSceneName = "GameScene"; // ⚠️ đặt đúng tên scene
-    // Gọi khi bấm nút New Game
-    public void NewGame()
+    public string gameSceneName = "MAP3";
+
+    [Header("Nút Quit")]
+    public Button quitButton; // Kéo Button Quit vào đây
+    public float delayEnable = 2f; // thời gian khóa 2 giây đầu
+
+    void Start()
     {
-        SceneManager.LoadScene("MAP3"); // thay "GameScene" bằng tên scene chơi game của bạn
+        if (quitButton != null)
+            quitButton.interactable = false; // khóa click
+
+        Invoke(nameof(EnableQuitButton), delayEnable);
     }
 
-    // Gọi khi bấm nút Quit
+    void EnableQuitButton()
+    {
+        if (quitButton != null)
+            quitButton.interactable = true;
+    }
+
+    public void NewGame()
+    {
+        SceneManager.LoadScene(gameSceneName);
+    }
+
     public void QuitGame()
     {
-        Debug.Log("Thoát game..."); // để test trong Editor
-        Application.Quit(); // chỉ thoát khi build ra .exe/.apk
+        Debug.Log("❌ Thoát game!");
+        Application.Quit();
+
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#endif
     }
 }

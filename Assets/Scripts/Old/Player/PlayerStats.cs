@@ -14,12 +14,12 @@ public class PlayerStats : MonoBehaviour
     public float thirst = 100f;
 
     [Header("Rates")]
-    public float hungerDecreaseRate = 10f; // mỗi 10 giây giảm 1
-    public float thirstDecreaseRate = 5f;  // mỗi 5 giây giảm 1
+    public float hungerDecreaseRate = 15f; // mỗi 10 giây giảm 1
+    public float thirstDecreaseRate = 10f;  // mỗi 5 giây giảm 1
     public float healthDecreaseRate = 1f;  // máu giảm khi đói/khát
 
     [Header("Rain Effect")]
-    public float rainHealthDecreaseRate = 2f; // máu mất mỗi giây khi trời mưa
+    public float rainHealthDecreaseRate = 1f; // máu mất mỗi giây khi trời mưa
     public Weather weatherSystem;             // tham chiếu script Weather
 
     private float hungerTimer;
